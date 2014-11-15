@@ -1,10 +1,22 @@
 package com.guyjstitt.trender;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import twitter4j.JSONArray;
+import twitter4j.JSONException;
+import twitter4j.JSONObject;
 import twitter4j.Location;
 import twitter4j.ResponseList;
 import twitter4j.Status;
@@ -22,13 +34,164 @@ public class MainActivity extends Activity {
     private static final String ACCESS_KEY = "1882820096-7IQ3Bqq5qpcvIeZPtp2U7WUjUu2WrtUUH8njQX6";
     private static final String ACCESS_SECRET = "M3DhHLwlduQzKRY1lmNMir8EIQq9wGn2jBfiVbHz9tddc";
 
+    ListView trendList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        latestTrends();
+        //TrendsTask task = new TrendsTask(getApplicationContext());
+        //task.execute();
+
+        //Create the
+        trendList = (ListView) findViewById(R.id.listViewTrends);
+        trendList.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,new ArrayList()));
+        new TrendsTask().execute();
     }
 
+    //subclassed for easy access to main activity context
+    class TrendsTask extends AsyncTask<Void, String, Void> {
+
+        private ArrayAdapter<String> adapter;
+        private Context context;
+        private static final String CONSUMER_KEY = "ij16iXvFm1oxxss88Scw6JgCy" ;
+        private static final String CONSUMER_SECRET = "T1QcwJ3d1niOp6M0NxZHgIaSFq0d67Iyp7OcmdYYyN8X4E7gOG";
+        private static final String ACCESS_KEY = "1882820096-7IQ3Bqq5qpcvIeZPtp2U7WUjUu2WrtUUH8njQX6";
+        private static final String ACCESS_SECRET = "M3DhHLwlduQzKRY1lmNMir8EIQq9wGn2jBfiVbHz9tddc";
+
+
+
+        //Before execute set adapter
+        @Override
+        protected void onPreExecute() {
+            adapter = (ArrayAdapter<String>) trendList.getAdapter();
+        }
+
+        //Task to get the latest trends
+        @Override
+        protected Void doInBackground(Void... params) {
+            ConfigurationBuilder cb = new ConfigurationBuilder();
+            cb.setDebugEnabled(true);
+            cb.setOAuthConsumerKey(CONSUMER_KEY);
+            cb.setOAuthConsumerSecret(CONSUMER_SECRET);
+            cb.setOAuthAccessToken(ACCESS_KEY);
+            cb.setOAuthAccessTokenSecret(ACCESS_SECRET);
+            TwitterFactory tf = new TwitterFactory(cb.build());
+            Twitter twitter = tf.getInstance();
+
+            ResponseList<Location> locations = null;
+            try {
+                locations = twitter.getAvailableTrends();
+            } catch (TwitterException e) {
+                e.printStackTrace();
+            }
+            Trends trends = null;
+            try {
+                trends = twitter.getPlaceTrends(23424977);
+            } catch (TwitterException e) {
+                e.printStackTrace();
+            }
+
+            JSONArray array = new JSONArray();
+            for (int i = 0; i < trends.getTrends().length; i++) {
+
+            //Previous code to convert JsonObject to JsonArray
+            /*
+                try {
+                    JSONObject object = new JSONObject();
+                    object.put("name", trends.getTrends()[i].getName());
+                    System.out.println(trends.getTrends()[i].getName());
+                    //array.put(i, object));
+                    array.put(object);
+                    System.out.println(array);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            */
+                //add the trends one by one to the the array JsonArray
+                array.put(trends.getTrends()[i].getName());
+
+            }
+
+            //Convert JsonArray to String Array
+            List<String> list = new ArrayList<String>();
+            for (int i=0; i<array.length(); i++) {
+                try {
+                    list.add( array.getString(i) );
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            String[] stringArray = list.toArray(new String[list.size()]);
+            System.out.println(array);
+
+            /*
+            String secondTrend;
+            try {
+                secondTrend = array.getJSONObject(1).getString("name");
+                System.out.println(secondTrend);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            JSONArray arr = null;
+            try {
+                arr = new JSONArray(array);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            List<String> list = new ArrayList<String>();
+            for(int i = 0; i < arr.length(); i++){
+                try {
+                    list.add(arr.getJSONObject(i).getString("name"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            */
+            // for items in stringArray call pass to publishProgress
+            for (String item: stringArray) {
+                publishProgress(item);
+            }
+            return null;
+        }
+
+        //When progress updated, add the value to the adapter
+        @Override
+        protected  void onProgressUpdate(String... values) {
+            adapter.add(values[0]);
+        }
+
+        //Unused
+        @Override
+        protected void onPostExecute(Void result)
+        {
+
+
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Currently unused tweet thread
     public void tweet() {
         Runnable runnable = new Runnable() {
             public void run() {
@@ -54,6 +217,7 @@ public class MainActivity extends Activity {
         tweetThread.start();
     }
 
+    //Currently unused latest trends thread
     public void latestTrends() {
 
         Runnable runnable = new Runnable() {
@@ -79,31 +243,46 @@ public class MainActivity extends Activity {
                 } catch (TwitterException e) {
                     e.printStackTrace();
                 }
+
+                JSONArray array = new JSONArray();
                 for (int i = 0; i < trends.getTrends().length; i++) {
-                    System.out.println(trends.getTrends()[i].getName());
+
+
+                    try {
+                        //JSONObject singleTrend = new JSONObject();
+                        JSONObject object = new JSONObject();
+                        object.put("name", trends.getTrends()[i].getName());
+                        System.out.println(trends.getTrends()[i].getName());
+                        //array.put(i, object));
+                        array.put(object);
+                        System.out.println(array);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
+                System.out.println(array);
+
+                String secondTrend;
+                try {
+                    secondTrend = array.getJSONObject(1).getString("name");
+                    System.out.println(secondTrend);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         };
         Thread trendThread = new Thread(runnable);
         trendThread.start();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    public void search() {
+        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+        String keyword= "latest trends";
+        intent.putExtra(SearchManager.QUERY, keyword);
+        startActivity(Intent.createChooser(intent, "dialogTitle"));
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
