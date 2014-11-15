@@ -1,18 +1,23 @@
 package com.guyjstitt.trender;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import twitter4j.JSONArray;
 import twitter4j.JSONException;
@@ -27,34 +32,98 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
 
     private static final String CONSUMER_KEY = "ij16iXvFm1oxxss88Scw6JgCy" ;
     private static final String CONSUMER_SECRET = "T1QcwJ3d1niOp6M0NxZHgIaSFq0d67Iyp7OcmdYYyN8X4E7gOG";
     private static final String ACCESS_KEY = "1882820096-7IQ3Bqq5qpcvIeZPtp2U7WUjUu2WrtUUH8njQX6";
     private static final String ACCESS_SECRET = "M3DhHLwlduQzKRY1lmNMir8EIQq9wGn2jBfiVbHz9tddc";
 
-    public ListView trendList;
+    //Json node names
+    private static final String TAG_NAME = "name";
+
+    //ArrayList
+    public ArrayList<HashMap<String,String>> trendList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        trendList = new ArrayList<HashMap<String,String>>();
+        ListView lv = getListView();
 
-        //Create the
-        trendList = (ListView) findViewById(R.id.listViewTrends);
-        trendList.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,new ArrayList()));
-        TrendsTask task = new TrendsTask(this, trendList);
-        task.execute();
-        trendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(MainActivity.this,WebActivity.class);
+                Intent intent = new Intent(MainActivity.this, WebActivity.class);
                 intent.setData(Uri.parse("www.javacodegeeks.com"));
                 startActivity(intent);
             }
         });
+        new TrendsTask().execute();
+    }
+
+    class TrendsTask extends AsyncTask<Void, Void, Void> {
+
+        private ArrayAdapter<String> adapter;
+        private Context mContext;
+
+        private static final String CONSUMER_KEY = "ij16iXvFm1oxxss88Scw6JgCy" ;
+        private static final String CONSUMER_SECRET = "T1QcwJ3d1niOp6M0NxZHgIaSFq0d67Iyp7OcmdYYyN8X4E7gOG";
+        private static final String ACCESS_KEY = "1882820096-7IQ3Bqq5qpcvIeZPtp2U7WUjUu2WrtUUH8njQX6";
+        private static final String ACCESS_SECRET = "M3DhHLwlduQzKRY1lmNMir8EIQq9wGn2jBfiVbHz9tddc";
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        //Task to get the latest trends
+        @Override
+        protected Void doInBackground(Void... params) {
+            ConfigurationBuilder cb = new ConfigurationBuilder();
+            cb.setDebugEnabled(true);
+            cb.setOAuthConsumerKey(CONSUMER_KEY);
+            cb.setOAuthConsumerSecret(CONSUMER_SECRET);
+            cb.setOAuthAccessToken(ACCESS_KEY);
+            cb.setOAuthAccessTokenSecret(ACCESS_SECRET);
+            TwitterFactory tf = new TwitterFactory(cb.build());
+            Twitter twitter = tf.getInstance();
+
+            ResponseList<Location> locations = null;
+            try {
+                locations = twitter.getAvailableTrends();
+            } catch (TwitterException e) {
+                e.printStackTrace();
+            }
+            Trends trends = null;
+            try {
+                trends = twitter.getPlaceTrends(23424977);
+            } catch (TwitterException e) {
+                e.printStackTrace();
+            }
+
+            //loop through trends and store in trendList
+            for (int i = 0; i < trends.getTrends().length; i++) {
+                String name = trends.getTrends()[i].getName();
+                HashMap<String,String> trend = new HashMap<String, String>();
+                trend.put(TAG_NAME,name);
+                trendList.add(trend);
+            }
+
+            return null;
+        }
+
+        //After getting the trends, create adapter and apply data to view_for_each_trend
+        @Override
+        protected void onPostExecute(Void result)
+        {
+
+            ListAdapter adapter = new SimpleAdapter(MainActivity.this,trendList,R.layout.view_for_each_trend, new String[]{TAG_NAME},new int[] {R.id.textViewTrendName});
+            setListAdapter(adapter);
+
+        }
     }
 
     @Override
