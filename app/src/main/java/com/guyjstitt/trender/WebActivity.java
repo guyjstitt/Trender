@@ -1,6 +1,7 @@
 package com.guyjstitt.trender;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,10 +16,16 @@ public class WebActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web_activity);
 
+        Intent intent = getIntent();
+        intent.getExtras();
+        String topUrl = intent.getStringExtra("lucky_url");
+        System.out.println(topUrl);
+
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.clearCache(true);
         webView.setWebViewClient(new Callback());
-        webView.loadUrl("http://www.google.com");
+        webView.loadUrl(topUrl);
     }
 
     private class Callback extends WebViewClient {
