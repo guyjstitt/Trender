@@ -46,9 +46,9 @@ public class MainActivity extends ListActivity {
     private static final String ACCESS_SECRET = "M3DhHLwlduQzKRY1lmNMir8EIQq9wGn2jBfiVbHz9tddc";
 
     //google key
-    private static final String GOOGLE_ACCESS = "AIzaSyDPAWE2vgEnJZaeCggl-lwE9xf-66goe8M";
+    private static final String GOOGLE_ACCESS = "AIzaSyAS5Sg2lv4s6uepR_DYfahGuUt3J8v7OUk";
     private static final String GOOGLE_API = "https://www.googleapis.com/customsearch/v1";
-    private static final String GOOGLE_ENGINE_ID = "005134152895831399260:yt1gqfigi0y";
+    private static final String GOOGLE_ENGINE_ID = "005134152895831399260:rhg-e3atmi8";
     //Json node names
     private static final String TAG_NAME = "name";
 
