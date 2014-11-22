@@ -3,6 +3,7 @@
     package="com.guyjstitt.trender" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/ts_launcher"
@@ -19,6 +20,11 @@
         </activity>
         <activity
             android:name=".WebActivity"
+            android:label="@string/app_name" >
+
+        </activity>
+        <activity
+            android:name=".RecentTrendsActivity"
             android:label="@string/app_name" >
 
         </activity>

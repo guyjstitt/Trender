@@ -24,4 +24,6 @@ dependencies {
     compile 'com.google.apis:google-api-services-customsearch:v1-rev45-1.19.0'
     compile 'org.twitter4j:twitter4j:4.0.2'
     compile 'org.twitter4j:twitter4j-core:4.0.2'
+    compile 'com.parse.bolts:bolts-android:1.1.2'
+    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
 }

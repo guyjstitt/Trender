@@ -10,10 +10,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import com.parse.Parse;
+import com.parse.ParseObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -64,6 +68,17 @@ public class MainActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Parse.initialize(this, "zpr5CWnZst3fg7eKHxtpptFHQdRy9EFF7AYYA5Yt", "VcrrzAEH5S6yF6Sl93pGP7EcpconiqATJ0dz2ZQd");
+
+        final Button button = (Button) findViewById(R.id.recentTrendBtn);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),RecentTrendsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //initialize Array list Hash maps and list view
         trendList = new ArrayList<HashMap<String,String>>();
@@ -89,6 +104,8 @@ public class MainActivity extends ListActivity {
                 myTask.execute();
             }
         });
+
+
     }
 
     //subclass that gets top result and starts web view and passes the top result url
@@ -143,7 +160,6 @@ public class MainActivity extends ListActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             String output;
             System.out.println("Output from Server .... \n");
             String link = null;
@@ -170,6 +186,14 @@ public class MainActivity extends ListActivity {
         }
 
         protected void onPostExecute(Void result) {
+
+            //save the item clicked on to Parse
+            ParseObject trendObject = new ParseObject("TrendObject");
+            trendObject.put("trendName", trendName);
+            trendObject.put("url", luckyResult);
+            trendObject.put("recent","true");
+            trendObject.saveInBackground();
+
             Intent intent = new Intent(MainActivity.this, WebActivity.class);
             Bundle extras = new Bundle();
             intent.putExtra("lucky_url", luckyResult);
