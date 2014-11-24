@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.guyjstitt.trender.activity.RecentTrendsActivity;
+import com.guyjstitt.trender.activity.WebActivity;
 import com.parse.Parse;
 import com.parse.ParseObject;
 

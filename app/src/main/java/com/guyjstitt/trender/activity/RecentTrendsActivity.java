@@ -1,4 +1,4 @@
-package com.guyjstitt.trender;
+package com.guyjstitt.trender.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.guyjstitt.trender.ListViewAdapter;
+import com.guyjstitt.trender.R;
+import com.guyjstitt.trender.TrendModel;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;

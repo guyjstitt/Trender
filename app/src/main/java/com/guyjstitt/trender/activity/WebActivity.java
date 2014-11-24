@@ -1,10 +1,12 @@
-package com.guyjstitt.trender;
+package com.guyjstitt.trender.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.guyjstitt.trender.R;
 
 /**
  * Created by gstitt on 11/15/14.

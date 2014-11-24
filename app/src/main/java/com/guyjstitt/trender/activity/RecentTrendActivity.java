@@ -1,4 +1,4 @@
-package com.guyjstitt.trender;
+package com.guyjstitt.trender.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
