@@ -1,4 +1,4 @@
-package com.guyjstitt.trender;
+package com.guyjstitt.trender.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.guyjstitt.trender.R;
 import com.guyjstitt.trender.model.TopicModel;
 
 import java.util.List;

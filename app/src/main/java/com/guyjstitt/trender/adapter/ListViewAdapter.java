@@ -1,4 +1,4 @@
-package com.guyjstitt.trender;
+package com.guyjstitt.trender.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.guyjstitt.trender.R;
 import com.guyjstitt.trender.activity.WebActivity;
 import com.guyjstitt.trender.model.TrendModel;
 
