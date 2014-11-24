@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.guyjstitt.trender.activity.WebActivity;
+import com.guyjstitt.trender.model.TrendModel;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.guyjstitt.trender;
+package com.guyjstitt.trender.model;
 
 /**
  * Created by gstitt on 11/14/14.

@@ -2,6 +2,8 @@ package com.guyjstitt.trender;
 
 import android.app.Application;
 
+import com.guyjstitt.trender.model.TrendModel;
+
 import java.util.ArrayList;
 import java.util.List;
 

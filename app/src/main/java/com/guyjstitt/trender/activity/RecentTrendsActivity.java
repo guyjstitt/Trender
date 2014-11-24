@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import com.guyjstitt.trender.ListViewAdapter;
 import com.guyjstitt.trender.R;
-import com.guyjstitt.trender.TrendModel;
+import com.guyjstitt.trender.model.TrendModel;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
