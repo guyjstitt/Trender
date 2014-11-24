@@ -25,5 +25,6 @@ dependencies {
     compile 'org.twitter4j:twitter4j:4.0.2'
     compile 'org.twitter4j:twitter4j-core:4.0.2'
     compile 'com.parse.bolts:bolts-android:1.1.2'
+    compile 'com.android.support:appcompat-v7:21.0.0'
     compile fileTree(dir: 'libs', include: 'Parse-*.jar')
 }
