@@ -3,12 +3,12 @@ package com.guyjstitt.trender;
 /**
  * Created by gstitt on 11/14/14.
  */
-public class Topic {
+public class TopicModel {
     private String name;
 
-    public Topic(){}
+    public TopicModel(){}
 
-    public Topic(String name) {
+    public TopicModel(String name) {
         this.name = name;
     }
     public String getName() {return name;}

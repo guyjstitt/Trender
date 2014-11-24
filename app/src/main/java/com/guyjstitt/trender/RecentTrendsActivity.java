@@ -23,7 +23,7 @@ public class RecentTrendsActivity extends Activity {
     List<ParseObject> ob;
     ProgressDialog mProgressDialog;
     ListViewAdapter adapter;
-    private List<TrendData> recentTrendlist = null;
+    private List<TrendModel> recentTrendlist = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class RecentTrendsActivity extends Activity {
         protected Void doInBackground(Void... params) {
 
             // Create the array
-            recentTrendlist = new ArrayList<TrendData>();
+            recentTrendlist = new ArrayList<TrendModel>();
             try {
 
                 ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TrendObject");
@@ -49,7 +49,7 @@ public class RecentTrendsActivity extends Activity {
                 ob = query.find();
                 for (ParseObject trend: ob) {
 
-                    TrendData rt = new TrendData();
+                    TrendModel rt = new TrendModel();
                     rt.setTrend((String) trend.get("trendName"));
                     rt.setUrl((String) trend.get("url"));
                     recentTrendlist.add(rt);

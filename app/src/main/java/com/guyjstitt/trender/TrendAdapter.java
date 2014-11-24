@@ -14,12 +14,12 @@ import java.util.List;
  */
 
 //CURRENTLY UNUSED
-public class TrendAdapter extends ArrayAdapter<Topic> {
+public class TrendAdapter extends ArrayAdapter<TopicModel> {
     private Context context;
-    private List<Topic> mTrends;
+    private List<TopicModel> mTrends;
 
 
-    public TrendAdapter(Context context, List<Topic> mTrends) {
+    public TrendAdapter(Context context, List<TopicModel> mTrends) {
         super(context, R.layout.view_for_each_trend, mTrends);
         this.context = context;
         this.mTrends = mTrends;
@@ -35,7 +35,7 @@ public class TrendAdapter extends ArrayAdapter<Topic> {
             convertView = inflater.inflate(R.layout.view_for_each_trend, parent, false);
         }
 
-        final Topic trend = mTrends.get(position);
+        final TopicModel trend = mTrends.get(position);
 
         TextView textViewName = (TextView)convertView.findViewById(R.id.textViewTrendName);
         textViewName.setText(trend.getName());
@@ -43,7 +43,7 @@ public class TrendAdapter extends ArrayAdapter<Topic> {
         return convertView;
     }
 
-    public void setTrendList(List<Topic> mTrends) {
+    public void setTrendList(List<TopicModel> mTrends) {
 
         this.mTrends = mTrends;
 

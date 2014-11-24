@@ -6,7 +6,7 @@ import android.os.Bundle;
 /**
  * Created by gstitt on 11/21/14.
  */
-public class RecentTrendView  extends Activity{
+public class RecentTrendActivity extends Activity{
     // Declare Variables
     String trend;
     String url;

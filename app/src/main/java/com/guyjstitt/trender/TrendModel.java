@@ -3,7 +3,7 @@ package com.guyjstitt.trender;
 /**
  * Created by gstitt on 11/21/14.
  */
-public class TrendData {
+public class TrendModel {
     private String trend;
     private String url;
 

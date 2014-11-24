@@ -19,15 +19,15 @@ public class ListViewAdapter extends BaseAdapter {
     // Declare Variables
     Context context;
     LayoutInflater inflater;
-    private List<TrendData> recentTrendList = null;
-    private ArrayList<TrendData> arraylist;
+    private List<TrendModel> recentTrendList = null;
+    private ArrayList<TrendModel> arraylist;
 
     public ListViewAdapter(Context context,
-                           List<TrendData> recentTrendList) {
+                           List<TrendModel> recentTrendList) {
         this.context = context;
         this.recentTrendList = recentTrendList;
         inflater = LayoutInflater.from(context);
-        this.arraylist = new ArrayList<TrendData>();
+        this.arraylist = new ArrayList<TrendModel>();
         this.arraylist.addAll(recentTrendList);
     }
 

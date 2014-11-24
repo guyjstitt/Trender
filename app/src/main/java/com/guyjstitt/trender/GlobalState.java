@@ -11,7 +11,7 @@ import java.util.List;
 public class GlobalState extends Application {
 
     private static GlobalState singleton;
-    private List<TrendData> trendList;
+    private List<TrendModel> trendList;
 
     public static GlobalState getInstance() {
         return singleton;
@@ -21,14 +21,14 @@ public class GlobalState extends Application {
     public void onCreate() {
         super.onCreate();
         singleton = this;
-        singleton.trendList = new ArrayList<TrendData>();
+        singleton.trendList = new ArrayList<TrendModel>();
     }
 
-    public List<TrendData> getTrendList() {
+    public List<TrendModel> getTrendList() {
         return trendList;
     }
 
-    public void setTrendList(List<TrendData> trendList) {
+    public void setTrendList(List<TrendModel> trendList) {
         this.trendList = trendList;
     }
 }
