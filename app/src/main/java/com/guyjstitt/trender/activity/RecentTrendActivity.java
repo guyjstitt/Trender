@@ -1,12 +1,12 @@
 package com.guyjstitt.trender.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
 /**
  * Created by gstitt on 11/21/14.
  */
-public class RecentTrendActivity extends Activity{
+public class RecentTrendActivity extends ActionBarActivity {
     // Declare Variables
     String trend;
     String url;

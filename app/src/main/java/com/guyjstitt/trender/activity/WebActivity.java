@@ -1,8 +1,8 @@
 package com.guyjstitt.trender.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -11,7 +11,7 @@ import com.guyjstitt.trender.R;
 /**
  * Created by gstitt on 11/15/14.
  */
-public class WebActivity extends Activity {
+public class WebActivity extends ActionBarActivity {
     private WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

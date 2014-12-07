@@ -1,9 +1,9 @@
 package com.guyjstitt.trender;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -16,7 +16,7 @@ import com.guyjstitt.trender.util.TrendTask;
 import com.parse.Parse;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
     //used to change query for search URL and pass to WebActivity
     public String trendName;
