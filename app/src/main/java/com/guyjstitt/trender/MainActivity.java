@@ -5,9 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,19 +32,28 @@ public class MainActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //keys for parse.com
-        Parse.initialize(this, "zpr5CWnZst3fg7eKHxtpptFHQdRy9EFF7AYYA5Yt", "VcrrzAEH5S6yF6Sl93pGP7EcpconiqATJ0dz2ZQd");
-
-        //placeholder button for recent trends
-        final Button button = (Button) findViewById(R.id.recentTrendBtn);
-        button.setOnClickListener(new View.OnClickListener() {
-
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),RecentTrendsActivity.class);
-                startActivity(intent);
+            public boolean onMenuItemClick(MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.action_refresh:
+                        // refresh code
+                        return true;
+
+                    case R.id.action_history:
+                        // history code
+                        Intent intent = new Intent(getBaseContext(), RecentTrendsActivity.class );
+                                startActivity(intent);
+                        return true;
+                }
+
+                return false;
             }
         });
+
+        //keys for parse.com
+        Parse.initialize(this, "zpr5CWnZst3fg7eKHxtpptFHQdRy9EFF7AYYA5Yt", "VcrrzAEH5S6yF6Sl93pGP7EcpconiqATJ0dz2ZQd");
 
         //get the listview and context to pass to the TrendTask async task
         ListView lv = (ListView) findViewById(android.R.id.list);
@@ -66,5 +76,12 @@ public class MainActivity extends ActionBarActivity {
                 myTask.execute();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 }
