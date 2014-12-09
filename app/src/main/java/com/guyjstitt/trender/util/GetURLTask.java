@@ -40,6 +40,7 @@ public class GetURLTask extends AsyncTask<Void, Void, Void> {
     //used to get the trendname and context
     public String mTrendName;
     public Context mContext;
+    public String mCurrentUser;
 
     //set vars for GetURLTask async task
     GetURLTask myTask;
@@ -51,9 +52,10 @@ public class GetURLTask extends AsyncTask<Void, Void, Void> {
     String luckyResult ="";
 
     //constructor to get the context and trend name that was clicked on
-    public GetURLTask(Context context, String trendName) {
+    public GetURLTask(Context context, String trendName, String currentUser) {
         mContext = context;
         mTrendName = trendName;
+        mCurrentUser = currentUser;
     }
 
     //TODO implement checking for cancelling the task
@@ -134,6 +136,8 @@ public class GetURLTask extends AsyncTask<Void, Void, Void> {
 
         //save the item clicked on to Parse
         ParseObject trendObject = new ParseObject("TrendObject");
+        //add the user name to the saved object
+        trendObject.put("currentUserName", mCurrentUser);
         trendObject.put("trendName", mTrendName);
         trendObject.put("url", luckyResult);
         trendObject.put("recent","true");

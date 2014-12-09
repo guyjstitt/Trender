@@ -1,6 +1,7 @@
 package com.guyjstitt.trender.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -27,18 +28,27 @@ public class RecentTrendsActivity extends ActionBarActivity {
     ProgressDialog mProgressDialog;
     ListViewAdapter adapter;
     private List<TrendModel> recentTrendlist = null;
+    String mCurentUserName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Get the view from listview_main.xml
         setContentView(R.layout.recent_trends_activity);
+
+        //get extras
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        mCurentUserName = bundle.getString("currentUserName");
         // Execute RemoteDataTask AsyncTask
-        new RemoteDataTask().execute();
+        new RemoteDataTask(mCurentUserName).execute();
     }
     // RemoteDataTask AsyncTask
     private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 
+        public RemoteDataTask(String currentUserName) {
+            mCurentUserName = currentUserName;
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -48,7 +58,8 @@ public class RecentTrendsActivity extends ActionBarActivity {
             try {
 
                 ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TrendObject");
-                query.whereEqualTo("recent", "true");
+                query.whereEqualTo("currentUserName", mCurentUserName);
+
                 ob = query.find();
                 for (ParseObject trend: ob) {
 
