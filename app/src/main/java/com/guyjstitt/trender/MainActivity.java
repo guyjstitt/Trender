@@ -28,6 +28,7 @@ public class MainActivity extends ActionBarActivity {
     //used to change query for search URL and pass to WebActivity
     public String trendName;
     public Context context;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +41,8 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-        final ParseUser user = ParseUser.getCurrentUser();
-        final String userName = user.getUsername();
-        System.out.println("This is my username " + userName);
+
+        //System.out.println("This is my username " + userName);
 
         ParseTwitterUtils.logIn(this, new LogInCallback() {
             @Override
@@ -53,6 +53,9 @@ public class MainActivity extends ActionBarActivity {
                     Log.d("MyApp", "User signed up and logged in through Twitter!");
                 } else {
                     Log.d("MyApp", "User logged in through Twitter!");
+                    userName = user.getUsername();
+                    Log.d("SAMPLE", userName);
+
                 }
             }
         });
@@ -67,6 +70,10 @@ public class MainActivity extends ActionBarActivity {
                 switch (item.getItemId()){
                     case R.id.action_refresh:
                         // refresh code
+                        //get the listview and context to pass to the TrendTask async task
+                        ListView lv = (ListView) findViewById(android.R.id.list);
+                        context = getApplicationContext();
+                        new TrendTask(context, lv).execute();
                         return true;
 
                     case R.id.action_history:
