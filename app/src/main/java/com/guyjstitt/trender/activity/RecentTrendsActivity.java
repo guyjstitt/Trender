@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ListView;
 
@@ -35,6 +36,11 @@ public class RecentTrendsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         // Get the view from listview_main.xml
         setContentView(R.layout.recent_trends_activity);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.recenttoolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //get extras
         Intent intent = getIntent();

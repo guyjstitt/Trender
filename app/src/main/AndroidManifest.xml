@@ -22,13 +22,14 @@
         <activity
             android:name=".activity.WebActivity"
             android:label="@string/app_name"
-            android:theme="@style/TrenderTheme" >>
+            android:theme="@style/TrendTheme" >
         </activity>
 
         <activity
             android:name=".activity.RecentTrendsActivity"
-            android:label="@string/app_name"
-            android:theme="@style/TrenderTheme" >>
+            android:label="Recent Trend Searches"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/TrendTheme" >
         </activity>
 
     </application>

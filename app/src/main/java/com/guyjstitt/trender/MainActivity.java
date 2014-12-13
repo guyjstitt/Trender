@@ -39,9 +39,6 @@ public class MainActivity extends ActionBarActivity {
         //setup twitter login
         ParseTwitterUtils.initialize("ij16iXvFm1oxxss88Scw6JgCy", "T1QcwJ3d1niOp6M0NxZHgIaSFq0d67Iyp7OcmdYYyN8X4E7gOG");
 
-
-
-
         //System.out.println("This is my username " + userName);
 
         ParseTwitterUtils.logIn(this, new LogInCallback() {
