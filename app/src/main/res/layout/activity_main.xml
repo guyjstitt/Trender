@@ -16,6 +16,11 @@
         android:layout_margin="0dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:background="?attr/colorPrimaryDark"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/screenName"
+        android:text="Helllo"/>
 
     <ListView
         android:layout_width="wrap_content"

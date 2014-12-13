@@ -8,13 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.guyjstitt.trender.activity.RecentTrendsActivity;
-import com.guyjstitt.trender.util.GetURLTask;
 import com.guyjstitt.trender.util.TrendTask;
 import com.parse.LogInCallback;
 import com.parse.Parse;
@@ -29,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
     public String trendName;
     public Context context;
     private String userName;
+    private  ParseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +36,6 @@ public class MainActivity extends ActionBarActivity {
         Parse.initialize(this, "zpr5CWnZst3fg7eKHxtpptFHQdRy9EFF7AYYA5Yt", "VcrrzAEH5S6yF6Sl93pGP7EcpconiqATJ0dz2ZQd");
         //setup twitter login
         ParseTwitterUtils.initialize("ij16iXvFm1oxxss88Scw6JgCy", "T1QcwJ3d1niOp6M0NxZHgIaSFq0d67Iyp7OcmdYYyN8X4E7gOG");
-
-        //System.out.println("This is my username " + userName);
 
         ParseTwitterUtils.logIn(this, new LogInCallback() {
             @Override
@@ -51,11 +47,14 @@ public class MainActivity extends ActionBarActivity {
                 } else {
                     Log.d("MyApp", "User logged in through Twitter!");
                     userName = user.getUsername();
+                    String screenName = ParseTwitterUtils.getTwitter().getScreenName();
                     Log.d("SAMPLE", userName);
-
+                    TextView mScreenName = (TextView) findViewById(R.id.screenName);
+                    mScreenName.setText(screenName);
                 }
             }
         });
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
                         //get the listview and context to pass to the TrendTask async task
                         ListView lv = (ListView) findViewById(android.R.id.list);
                         context = getApplicationContext();
-                        new TrendTask(context, lv).execute();
+                        new TrendTask(context, lv, userName).execute();
                         return true;
 
                     case R.id.action_history:
@@ -91,9 +90,9 @@ public class MainActivity extends ActionBarActivity {
         //get the listview and context to pass to the TrendTask async task
         ListView lv = (ListView) findViewById(android.R.id.list);
         context = getApplicationContext();
-        new TrendTask(context, lv).execute();
+        new TrendTask(context, lv, userName).execute();
 
-        //on click listener for list view
+        /*on click listener for list view
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -109,6 +108,9 @@ public class MainActivity extends ActionBarActivity {
                 myTask.execute();
             }
         });
+        */
+
+
     }
 
     @Override

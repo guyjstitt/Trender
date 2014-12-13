@@ -70,7 +70,6 @@ public class ListViewAdapter extends BaseAdapter {
         // Set the results into TextViews
         holder.trendName.setText(recentTrendList.get(position).getTrend());
 
-
         // Listen for ListView Item Click
         view.setOnClickListener(new View.OnClickListener() {
             String recentTrendUrl = recentTrendList.get(position).getUrl();

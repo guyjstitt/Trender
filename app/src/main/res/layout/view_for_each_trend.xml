@@ -12,5 +12,24 @@
         android:text="TextView"
         android:padding="5dp"
         android:paddingLeft="50dp"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Learn More"
+            android:id="@+id/urlButton"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tweetButton"
+            android:text="Tweet"
+            android:layout_toRightOf="@id/urlButton"/>
+
+    </RelativeLayout>
  </LinearLayout>
 
