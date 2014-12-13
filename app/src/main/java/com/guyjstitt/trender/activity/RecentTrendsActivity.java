@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.guyjstitt.trender.R;
@@ -56,6 +57,16 @@ public class RecentTrendsActivity extends ActionBarActivity {
     public void onBackPressed() {
         finish();
         overridePendingTransition( R.anim.animation, R.anim.animation2);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            overridePendingTransition(R.anim.animation3, R.anim.animation4);
+            return true;
+        }
+        return true;
     }
 
     // RemoteDataTask AsyncTask
