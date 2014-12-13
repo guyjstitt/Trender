@@ -1,5 +1,6 @@
 package com.guyjstitt.trender;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -77,7 +78,10 @@ public class MainActivity extends ActionBarActivity {
                         // history code
                         Intent intent = new Intent(getBaseContext(), RecentTrendsActivity.class );
                         intent.putExtra("currentUserName",userName);
-                        startActivity(intent);
+
+                        Bundle bndlanimation =
+                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.animation, R.anim.animation2).toBundle();
+                        startActivity(intent, bndlanimation);
                         return true;
                 }
 
