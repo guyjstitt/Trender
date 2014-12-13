@@ -42,6 +42,8 @@ public class RecentTrendsActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        overridePendingTransition( R.anim.animation, R.anim.animation2);
+
         //get extras
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -49,6 +51,13 @@ public class RecentTrendsActivity extends ActionBarActivity {
         // Execute RemoteDataTask AsyncTask
         new RemoteDataTask(mCurentUserName).execute();
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition( R.anim.animation, R.anim.animation2);
+    }
+
     // RemoteDataTask AsyncTask
     private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 
