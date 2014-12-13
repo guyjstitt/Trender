@@ -3,6 +3,7 @@ package com.guyjstitt.trender.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -22,6 +23,11 @@ public class WebActivity extends ActionBarActivity {
         intent.getExtras();
         String topUrl = intent.getStringExtra("lucky_url");
         System.out.println(topUrl);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.webviewtoolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
