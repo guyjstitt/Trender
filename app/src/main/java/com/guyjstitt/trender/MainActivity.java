@@ -26,8 +26,8 @@ public class MainActivity extends ActionBarActivity {
     //used to change query for search URL and pass to WebActivity
     public String trendName;
     public Context context;
-    private String userName;
-    private  ParseUser user;
+    private String screenName;
+    private  ParseUser user = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,25 +37,32 @@ public class MainActivity extends ActionBarActivity {
         Parse.initialize(this, "zpr5CWnZst3fg7eKHxtpptFHQdRy9EFF7AYYA5Yt", "VcrrzAEH5S6yF6Sl93pGP7EcpconiqATJ0dz2ZQd");
         //setup twitter login
         ParseTwitterUtils.initialize("ij16iXvFm1oxxss88Scw6JgCy", "T1QcwJ3d1niOp6M0NxZHgIaSFq0d67Iyp7OcmdYYyN8X4E7gOG");
+        //final String user = ParseTwitterUtils.getTwitter().getScreenName();
+        ParseUser thisUser = ParseUser.getCurrentUser();
 
-        ParseTwitterUtils.logIn(this, new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException err) {
-                if (user == null) {
-                    Log.d("MyApp", "Uh oh. The user cancelled the Twitter login.");
-                } else if (user.isNew()) {
-                    Log.d("MyApp", "User signed up and logged in through Twitter!");
-                } else {
-                    Log.d("MyApp", "User logged in through Twitter!");
-                    userName = user.getUsername();
-                    String screenName = ParseTwitterUtils.getTwitter().getScreenName();
-                    Log.d("SAMPLE", userName);
-                    TextView mScreenName = (TextView) findViewById(R.id.screenName);
-                    mScreenName.setText(screenName);
+
+        if(thisUser == null) {
+            ParseTwitterUtils.logIn(this, new LogInCallback() {
+                @Override
+                public void done(ParseUser user, ParseException err) {
+                    if (user == null) {
+                        Log.d("MyApp", "Uh oh. The user cancelled the Twitter login.");
+                    } else if (user.isNew()) {
+                        Log.d("MyApp", "User signed up and logged in through Twitter!");
+                    } else {
+                        Log.d("MyApp", "User logged in through Twitter!");
+                        screenName = ParseTwitterUtils.getTwitter().getScreenName();
+                        TextView mScreenName = (TextView) findViewById(R.id.screenName);
+                        mScreenName.setText(screenName);
+                    }
                 }
-            }
-        });
-
+            });
+        } else {
+            Log.d("MyApp", "This use is already logged in!");
+            screenName = ParseTwitterUtils.getTwitter().getScreenName();
+            TextView mScreenName = (TextView) findViewById(R.id.screenName);
+            mScreenName.setText("Hello " + screenName);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,20 +77,19 @@ public class MainActivity extends ActionBarActivity {
                         //get the listview and context to pass to the TrendTask async task
                         ListView lv = (ListView) findViewById(android.R.id.list);
                         context = getApplicationContext();
-                        new TrendTask(context, lv, userName).execute();
+                        new TrendTask(context, lv, screenName).execute();
                         return true;
 
                     case R.id.action_history:
                         // history code
                         Intent intent = new Intent(getBaseContext(), RecentTrendsActivity.class );
-                        intent.putExtra("currentUserName",userName);
+                        intent.putExtra("currentUserName",screenName);
 
                         Bundle bndlanimation =
                                 ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.animation, R.anim.animation2).toBundle();
                         startActivity(intent, bndlanimation);
                         return true;
                 }
-
                 return false;
             }
         });
@@ -94,26 +100,7 @@ public class MainActivity extends ActionBarActivity {
         //get the listview and context to pass to the TrendTask async task
         ListView lv = (ListView) findViewById(android.R.id.list);
         context = getApplicationContext();
-        new TrendTask(context, lv, userName).execute();
-
-        /*on click listener for list view
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                //gets the text of the item that was pressed
-                String selected = ((TextView) view.findViewById(R.id.textViewTrendName)).getText().toString();
-                //sets trendName to that text so it can be passed to Search URL
-                trendName = selected;
-
-                //starts async task to get top result, passes app context and trendName
-                GetURLTask myTask;
-                myTask = new GetURLTask(context,trendName,userName);
-                myTask.execute();
-            }
-        });
-        */
-
+        new TrendTask(context, lv, screenName).execute();
 
     }
 

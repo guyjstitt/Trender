@@ -108,6 +108,17 @@ public class TrendTask extends AsyncTask<ArrayList<HashMap<String,String>> , Voi
                 final String trendName =  ((TextView)v.findViewById(R.id.textViewTrendName)).getText().toString();
                 b.setTag(trendName);
 
+                Button tweetButton = (Button)v.findViewById(R.id.tweetButton);
+                tweetButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TweetTask tweet;
+                        tweet = new TweetTask();
+                        tweet.execute();
+
+                    }
+                });
+
                 b.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -118,19 +129,18 @@ public class TrendTask extends AsyncTask<ArrayList<HashMap<String,String>> , Voi
 
                         String trendNameText = (String)view.getTag();
                         System.out.println(trendNameText);
-
+                        System.out.println(mScreenName);
                         //starts async task to get top result, passes app context and trendName
                         GetURLTask myTask;
-                        myTask = new GetURLTask(mContext,trendNameText,"dontcare");
+                        myTask = new GetURLTask(mContext,trendNameText,mScreenName);
                         myTask.execute();
-
                     }
                 });
                 return v;
             }
         };
+
         ListView lv = (ListView) mView;
         lv.setAdapter(adapter);
-
     }
 }
