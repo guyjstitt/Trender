@@ -14,21 +14,39 @@
         android:paddingLeft="50dp"/>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="right">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:visibility="gone"
+            android:id="@+id/tweetContent"
+            android:hint="Tweet Here"/>
+        <Button
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tweetButton"
+            android:text="Tweet"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Learn More"
+            android:layout_toLeftOf="@id/tweetButton"
             android:id="@+id/urlButton"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tweetButton"
-            android:text="Tweet"
-            android:layout_toRightOf="@id/urlButton"/>
+            android:text="Share"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:id="@+id/updateStatus"
+            />
+
 
     </RelativeLayout>
  </LinearLayout>

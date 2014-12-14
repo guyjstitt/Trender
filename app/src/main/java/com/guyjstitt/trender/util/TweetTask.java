@@ -16,6 +16,12 @@ public class TweetTask extends AsyncTask<Void, Void, Void>{
     private static final String ACCESS_KEY = "1882820096-7IQ3Bqq5qpcvIeZPtp2U7WUjUu2WrtUUH8njQX6";
     private static final String ACCESS_SECRET = "M3DhHLwlduQzKRY1lmNMir8EIQq9wGn2jBfiVbHz9tddc";
     private String mTrendName;
+    private String mUserInput;
+
+    public TweetTask(String userInput, String trendName) {
+        mUserInput = userInput;
+        mTrendName = trendName;
+    }
 
     @Override
     protected Void doInBackground(Void... params) {
@@ -30,11 +36,11 @@ public class TweetTask extends AsyncTask<Void, Void, Void>{
 
         twitter4j.Status status = null;
         try {
-            status = twitter.updateStatus("tweeting from my first andriod app using twitter api");
+            status = twitter.updateStatus(mUserInput + " " + mTrendName);
         } catch (TwitterException e) {
             e.printStackTrace();
         }
-        System.out.println("Successfully updated the status to [" + status.getText() + "].");
+        System.out.println(mUserInput + " " + mTrendName);
 
         return null;
     }
