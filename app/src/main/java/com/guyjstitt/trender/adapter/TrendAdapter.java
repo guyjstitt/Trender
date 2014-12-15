@@ -29,8 +29,6 @@ public class TrendAdapter extends ArrayAdapter<TopicModel> {
 
     }
 
-    //this is adding the song data to the list_view_for_each_song
-    //returns the converted view
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView==null){

@@ -1,5 +1,6 @@
 package com.guyjstitt.trender.adapter;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -78,7 +79,11 @@ public class ListViewAdapter extends BaseAdapter {
                 Intent intent = new Intent(v.getContext(), WebActivity.class);
                 Bundle extras = new Bundle();
                 intent.putExtra("lucky_url", recentTrendUrl);
-                context.startActivity(intent);
+
+                Bundle bndlanimation =
+                        ActivityOptions.makeCustomAnimation(v.getContext(), R.anim.animation, R.anim.animation2).toBundle();
+
+                context.startActivity(intent, bndlanimation);
             }
         });
         return view;
