@@ -61,7 +61,7 @@ public class MainActivity extends ActionBarActivity {
             Log.d("MyApp", "This use is already logged in!");
             screenName = ParseTwitterUtils.getTwitter().getScreenName();
             TextView mScreenName = (TextView) findViewById(R.id.screenName);
-            mScreenName.setText("Hello " + screenName);
+            mScreenName.setText("Hello " + screenName + "!");
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -18,21 +18,15 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:background="?attr/colorPrimaryDark"/>
 
-    <RelativeLayout
+
+    <TextView
+        android:textSize="16sp"
+        android:layout_below="@id/toolbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/toolbar"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="20dp">
-        <TextView
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/screenName"
-            android:text="Hello"/>
-    </RelativeLayout>
-
+        android:layout_centerHorizontal="true"
+        android:id="@+id/screenName"
+        android:text=""/>
 
     <ListView
         android:layout_marginTop="20dp"
