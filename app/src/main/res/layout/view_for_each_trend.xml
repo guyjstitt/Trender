@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:textColor="#686868"
+            android:textColor="@color/dark_toolbar_blue"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@+id/updateStatus"
             android:visibility="gone"
