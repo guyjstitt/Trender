@@ -23,11 +23,8 @@ import com.parse.ParseUser;
 
 public class MainActivity extends ActionBarActivity {
 
-    //used to change query for search URL and pass to WebActivity
-    public String trendName;
     public Context context;
     private String screenName;
-    private  ParseUser user = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +36,6 @@ public class MainActivity extends ActionBarActivity {
         ParseTwitterUtils.initialize("ij16iXvFm1oxxss88Scw6JgCy", "T1QcwJ3d1niOp6M0NxZHgIaSFq0d67Iyp7OcmdYYyN8X4E7gOG");
         //final String user = ParseTwitterUtils.getTwitter().getScreenName();
         ParseUser thisUser = ParseUser.getCurrentUser();
-
 
         if(thisUser == null) {
             ParseTwitterUtils.logIn(this, new LogInCallback() {

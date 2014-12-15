@@ -77,7 +77,6 @@ public class ListViewAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), WebActivity.class);
-                Bundle extras = new Bundle();
                 intent.putExtra("lucky_url", recentTrendUrl);
 
                 Bundle bndlanimation =

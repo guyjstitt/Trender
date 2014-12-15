@@ -14,6 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/urlButton"
             android:textColorLink="@color/Black"
             android:padding="5dp"
             android:paddingLeft="50dp"/>
@@ -21,8 +23,10 @@
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#686868"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/white"
             android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/updateStatus"
             android:visibility="gone"
             android:id="@+id/tweetContent"
             android:hint="Tweet Here"/>
@@ -54,14 +58,14 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>
 
-        <ImageButton
-            android:layout_width="115dp"
+        <Button
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:visibility="gone"
             android:id="@+id/updateStatus"
-            android:src="@drawable/tweetbutton"
+            android:background="@drawable/twitter"
             android:textColor="@color/white"
             android:padding="10dp"
             android:layout_marginTop="5dp"

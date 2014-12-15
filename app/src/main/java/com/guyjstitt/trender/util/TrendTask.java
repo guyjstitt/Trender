@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -48,7 +47,6 @@ public class TrendTask extends AsyncTask<ArrayList<HashMap<String,String>> , Voi
     private static final String CONSUMER_SECRET = "T1QcwJ3d1niOp6M0NxZHgIaSFq0d67Iyp7OcmdYYyN8X4E7gOG";
     private static final String ACCESS_KEY = "1882820096-7IQ3Bqq5qpcvIeZPtp2U7WUjUu2WrtUUH8njQX6";
     private static final String ACCESS_SECRET = "M3DhHLwlduQzKRY1lmNMir8EIQq9wGn2jBfiVbHz9tddc";
-
 
     //Json node names
     private static final String TAG_NAME = "name";
@@ -92,11 +90,13 @@ public class TrendTask extends AsyncTask<ArrayList<HashMap<String,String>> , Voi
         }
         trendList = new ArrayList<HashMap<String,String>>();
         //loop through trends and store in trendList
-        for (int i = 0; i < trends.getTrends().length; i++) {
-            String name = trends.getTrends()[i].getName();
-            HashMap<String,String> trend = new HashMap<String, String>();
-            trend.put(TAG_NAME,name);
-            trendList.add(trend);
+        if(trends != null) {
+            for (int i = 0; i < trends.getTrends().length; i++) {
+                String name = trends.getTrends()[i].getName();
+                HashMap<String, String> trend = new HashMap<String, String>();
+                trend.put(TAG_NAME, name);
+                trendList.add(trend);
+            }
         }
 
         return null;
@@ -126,13 +126,16 @@ public class TrendTask extends AsyncTask<ArrayList<HashMap<String,String>> , Voi
                         v.setHasTransientState(true);
 
                         View parent = (View) v.getParent();
+                        final TextView trendText = (TextView) parent.findViewById(R.id.textViewTrendName);
                         final Button myTweetBtn = (Button) parent.findViewById(R.id.tweetButton);
                         final Button learnMore = (Button) parent.findViewById(R.id.urlButton);
-                        final ImageButton updateBtn = (ImageButton) parent.findViewById(R.id.updateStatus);
+                        final Button updateBtn = (Button) parent.findViewById(R.id.updateStatus);
                         final EditText updateStatus = (EditText) parent.findViewById(R.id.tweetContent);
+                        trendText.setVisibility(View.GONE);
                         learnMore.setVisibility(View.GONE);
                         myTweetBtn.setVisibility(View.GONE);
                         updateBtn.setVisibility(View.VISIBLE);
+
 
                         updateBtn.setTag(v.getTag().toString());
 
@@ -149,6 +152,7 @@ public class TrendTask extends AsyncTask<ArrayList<HashMap<String,String>> , Voi
                                 updateStatus.setVisibility(View.GONE);
                                 myTweetBtn.setVisibility(View.VISIBLE);
                                 learnMore.setVisibility(View.VISIBLE);
+                                trendText.setVisibility(View.VISIBLE);
 
                                 InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm.hideSoftInputFromWindow(updateStatus.getWindowToken(), 0);
@@ -189,6 +193,4 @@ public class TrendTask extends AsyncTask<ArrayList<HashMap<String,String>> , Voi
 
         lv.setAdapter(adapter);
     }
-
-
 }

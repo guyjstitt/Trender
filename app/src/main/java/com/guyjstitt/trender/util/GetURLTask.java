@@ -3,7 +3,8 @@ package com.guyjstitt.trender.util;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.guyjstitt.trender.activity.WebActivity;
 import com.parse.ParseObject;
@@ -50,17 +51,13 @@ public class GetURLTask extends AsyncTask<Void, Void, Void> {
     String key = "&key=";
     String sId = "&cx=";
     String luckyResult ="";
+    String link = null;
 
     //constructor to get the context and trend name that was clicked on
     public GetURLTask(Context context, String trendName, String currentUser) {
         mContext = context;
         mTrendName = trendName;
         mCurrentUser = currentUser;
-    }
-
-    //TODO implement checking for cancelling the task
-    public void onCancel() {
-        myTask.cancel(true);
     }
 
     @Override
@@ -106,7 +103,7 @@ public class GetURLTask extends AsyncTask<Void, Void, Void> {
         }
         String output;
         System.out.println("Output from Server .... \n");
-        String link = null;
+
         HashMap<String,String> searchResult = null;
 
         //clears any previous information before populating the search list again
@@ -115,17 +112,25 @@ public class GetURLTask extends AsyncTask<Void, Void, Void> {
             while ((output = br.readLine()) != null) {
                 if(output.contains("\"link\": \"")){
                     link=output.substring(output.indexOf("\"link\": \"")+("\"link\": \"").length(), output.indexOf("\","));
-                    searchResult = new HashMap<String, String>();
-                    searchResult.put(TAG_NAME,link);
-                    searchList.add(searchResult);
+                    System.out.println("this is the link " + link);
+                    if(link != null || link != "") {
+                        searchResult = new HashMap<String, String>();
+                        searchResult.put(TAG_NAME, link);
+                        searchList.add(searchResult);
+                    } else {
+                       link = null;
+                    }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         //get the top result that is indexed at 0
-        HashMap<String, String> topResult = searchList.get(0);
-        luckyResult = topResult.get("name");
+        System.out.println("hi " + searchList.size() + searchList.isEmpty());
+        if(link != null) {
+            HashMap<String, String> topResult = searchList.get(0);
+            luckyResult = topResult.get("name");
+        }
 
         conn.disconnect();
 
@@ -133,21 +138,24 @@ public class GetURLTask extends AsyncTask<Void, Void, Void> {
     }
 
     protected void onPostExecute(Void result) {
+        if(link != null) {
+            //save the item clicked on to Parse
+            ParseObject trendObject = new ParseObject("TrendObject");
+            //add the user name to the saved object
+            trendObject.put("currentUserName", mCurrentUser);
+            trendObject.put("trendName", mTrendName);
+            trendObject.put("url", luckyResult);
+            trendObject.put("recent", "true");
+            trendObject.saveInBackground();
 
-        //save the item clicked on to Parse
-        ParseObject trendObject = new ParseObject("TrendObject");
-        //add the user name to the saved object
-        trendObject.put("currentUserName", mCurrentUser);
-        trendObject.put("trendName", mTrendName);
-        trendObject.put("url", luckyResult);
-        trendObject.put("recent","true");
-        trendObject.saveInBackground();
-
-        Intent intent = new Intent(mContext, WebActivity.class);
-        Bundle extras = new Bundle();
-        //really don't know of this is okay
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("lucky_url", luckyResult);
-        (mContext).startActivity(intent);
+            Intent intent = new Intent(mContext, WebActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("lucky_url", luckyResult);
+            (mContext).startActivity(intent);
+        } else {
+            Toast toast = Toast.makeText(mContext, "There were no results for this Trending Topic",Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
+        }
     }
 }

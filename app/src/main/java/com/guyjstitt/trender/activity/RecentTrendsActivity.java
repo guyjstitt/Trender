@@ -1,6 +1,5 @@
 package com.guyjstitt.trender.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,7 +26,6 @@ public class RecentTrendsActivity extends ActionBarActivity {
     // Declare Variables
     ListView listview;
     List<ParseObject> ob;
-    ProgressDialog mProgressDialog;
     ListViewAdapter adapter;
     private List<TrendModel> recentTrendlist = null;
     String mCurentUserName;
