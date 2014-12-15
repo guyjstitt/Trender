@@ -1,19 +1,19 @@
 package com.guyjstitt.trender.activity;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.guyjstitt.trender.R;
+import com.guyjstitt.trender.fragment.WebFragment;
 
 /**
  * Created by gstitt on 11/15/14.
  */
 public class WebActivity extends ActionBarActivity {
-    private WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,19 +29,14 @@ public class WebActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        webView = (WebView) findViewById(R.id.webView);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.clearCache(true);
-        webView.setWebViewClient(new Callback());
-        webView.loadUrl(topUrl);
-    }
+        Bundle bundle = new Bundle();
+        bundle.putString("topUrl", topUrl);
 
-    private class Callback extends WebViewClient {
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            return (false);
-        }
-
+        WebFragment frag = new WebFragment();
+        frag.setArguments(bundle);
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.webLayout, frag, "Web Fragment");
+        transaction.commit();
     }
 }
