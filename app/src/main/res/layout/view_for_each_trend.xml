@@ -3,21 +3,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/textViewTrendName"
-        android:textSize="16dp"
-        android:textColor="#686868"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:padding="5dp"
-        android:paddingLeft="50dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right">
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textViewTrendName"
+            android:textSize="16dp"
+            android:textColor="#686868"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColorLink="@color/Black"
+            android:padding="5dp"
+            android:paddingLeft="50dp"/>
         <EditText
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -27,27 +28,44 @@
         <Button
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
             android:id="@+id/tweetButton"
-            android:text="Tweet"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Learn More"
-            android:layout_toLeftOf="@id/tweetButton"
-            android:id="@+id/urlButton"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Share"
+            android:background="@drawable/button"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:text="Learn"
+            android:layout_toLeftOf="@id/tweetButton"
+            android:id="@+id/urlButton"
+            android:background="@drawable/button"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:text="Tweet"
             android:layout_alignParentRight="true"
             android:visibility="gone"
             android:id="@+id/updateStatus"
+            android:background="@drawable/button"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             />
-
-
     </RelativeLayout>
  </LinearLayout>
 

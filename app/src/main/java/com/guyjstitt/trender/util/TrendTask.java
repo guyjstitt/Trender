@@ -132,6 +132,7 @@ public class TrendTask extends AsyncTask<ArrayList<HashMap<String,String>> , Voi
                         learnMore.setVisibility(View.GONE);
                         myTweetBtn.setVisibility(View.GONE);
                         updateBtn.setVisibility(View.VISIBLE);
+
                         updateBtn.setTag(v.getTag().toString());
 
                         updateBtn.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +163,7 @@ public class TrendTask extends AsyncTask<ArrayList<HashMap<String,String>> , Voi
                         });
 
                         updateStatus.setVisibility(View.VISIBLE);
+                        updateStatus.setText(v.getTag().toString());
                         updateStatus.requestFocus();
 
                         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
