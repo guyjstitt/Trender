@@ -36,11 +36,11 @@ public class TweetTask extends AsyncTask<Void, Void, Void>{
 
         twitter4j.Status status = null;
         try {
-            status = twitter.updateStatus(mUserInput + " " + mTrendName);
+            status = twitter.updateStatus(mUserInput);
         } catch (TwitterException e) {
             e.printStackTrace();
         }
-        System.out.println(mUserInput + " " + mTrendName);
+        System.out.println(mUserInput);
 
         return null;
     }
