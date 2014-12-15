@@ -156,7 +156,7 @@ public class TrendTask extends AsyncTask<ArrayList<HashMap<String,String>> , Voi
                                 tweet = new TweetTask(userInput,trendNameText);
                                 tweet.execute();
 
-                                Toast toast = Toast.makeText(mContext, "You tweeted: " + userInput + " " + trendNameText,Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(mContext, "You tweeted: " + userInput,Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
                                 toast.show();
                             }
