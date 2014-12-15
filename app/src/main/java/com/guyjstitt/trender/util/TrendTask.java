@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -127,7 +128,7 @@ public class TrendTask extends AsyncTask<ArrayList<HashMap<String,String>> , Voi
                         View parent = (View) v.getParent();
                         final Button myTweetBtn = (Button) parent.findViewById(R.id.tweetButton);
                         final Button learnMore = (Button) parent.findViewById(R.id.urlButton);
-                        final Button updateBtn = (Button) parent.findViewById(R.id.updateStatus);
+                        final ImageButton updateBtn = (ImageButton) parent.findViewById(R.id.updateStatus);
                         final EditText updateStatus = (EditText) parent.findViewById(R.id.tweetContent);
                         learnMore.setVisibility(View.GONE);
                         myTweetBtn.setVisibility(View.GONE);
